@@ -14,7 +14,7 @@ namespace CalculadoraForms
     {
         double numero1;
         string ultimoOp;
-        bool validar;
+        bool validarOp = false;
 
         public Form1()
         {
@@ -24,6 +24,7 @@ namespace CalculadoraForms
         private void btnLimpar_Click(object sender, EventArgs e)
         {
             txbTela.Clear();
+            txbAux.Clear();
         }
         private void Numero_Click(object sender, EventArgs e)
         {
@@ -35,15 +36,48 @@ namespace CalculadoraForms
         {
             // Obter o botão que está chamando o evento:
             var botao = (Button)sender;
-            numero1 = double.Parse(txbTela.Text);
-            txbTela.Clear();
-            txbAux.Text = numero1.ToString() + botao.Text;
-            ultimoOp = botao.Text;
+            if (validarOp == false && txbTela.Text != "")
+            {
+                numero1 = double.Parse(txbTela.Text);
+                txbTela.Clear();
+                txbAux.Text = numero1.ToString() + botao.Text;
+                ultimoOp = botao.Text;
+                validarOp = true;
+            }
+            else
+            {
+                if(txbAux.Text != "" && txbTela.Text != "")
+                {
+                    btnIgual.PerformClick();
+                    txbAux.Text = txbTela.Text + botao.Text;
+                    numero1 = double.Parse(txbTela.Text);
+                    ultimoOp = botao.Text;
+                    txbTela.Text = "";
+                }
+            }
         }
 
-        private EvaluateException btnCalcular_Click(object sender, EventArgs e)
+        private void btnCalcular_Click(object sender, EventArgs e)
         {
-            
+            switch (ultimoOp)
+            {
+                case "+":
+                    txbAux.Clear();
+                    txbTela.Text = (numero1 + double.Parse(txbTela.Text)).ToString();
+                    break;
+                case"-":
+                    txbAux.Clear();
+                    txbTela.Text = (numero1 - double.Parse(txbTela.Text)).ToString();
+                    break;
+                case "X":
+                    txbAux.Clear();
+                    txbTela.Text = (numero1 * double.Parse(txbTela.Text)).ToString();
+                    break;
+                case "÷":
+                    txbAux.Clear();
+                    txbTela.Text = (numero1 / double.Parse(txbTela.Text)).ToString();
+                    break;
+            }
         }
     }
 }
