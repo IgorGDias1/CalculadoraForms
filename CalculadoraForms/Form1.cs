@@ -25,6 +25,7 @@ namespace CalculadoraForms
         {
             txbTela.Clear();
             txbAux.Clear();
+            validarOp = false;
         }
         private void Numero_Click(object sender, EventArgs e)
         {
@@ -53,12 +54,14 @@ namespace CalculadoraForms
                     numero1 = double.Parse(txbTela.Text);
                     ultimoOp = botao.Text;
                     txbTela.Text = "";
+                    validarOp = false;
                 }
             }
         }
 
         private void btnCalcular_Click(object sender, EventArgs e)
         {
+            validarOp = false;
             switch (ultimoOp)
             {
                 case "+":
