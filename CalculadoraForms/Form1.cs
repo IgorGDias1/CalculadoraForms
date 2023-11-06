@@ -61,25 +61,34 @@ namespace CalculadoraForms
 
         private void btnCalcular_Click(object sender, EventArgs e)
         {
-            validarOp = false;
-            switch (ultimoOp)
+            if(txbAux.Text != "" && txbTela.Text != "")
             {
-                case "+":
-                    txbAux.Clear();
-                    txbTela.Text = (numero1 + double.Parse(txbTela.Text)).ToString();
-                    break;
-                case"-":
-                    txbAux.Clear();
-                    txbTela.Text = (numero1 - double.Parse(txbTela.Text)).ToString();
-                    break;
-                case "X":
-                    txbAux.Clear();
-                    txbTela.Text = (numero1 * double.Parse(txbTela.Text)).ToString();
-                    break;
-                case "÷":
-                    txbAux.Clear();
-                    txbTela.Text = (numero1 / double.Parse(txbTela.Text)).ToString();
-                    break;
+                switch (ultimoOp)
+                {
+                    case "+":
+                        txbAux.Clear();
+                        txbTela.Text = (numero1 + double.Parse(txbTela.Text)).ToString();
+                        break;
+                    case "-":
+                        txbAux.Clear();
+                        txbTela.Text = (numero1 - double.Parse(txbTela.Text)).ToString();
+                        break;
+                    case "X":
+                        txbAux.Clear();
+                        txbTela.Text = (numero1 * double.Parse(txbTela.Text)).ToString();
+                        break;
+                    case "÷":
+                        if(txbTela.Text != "0")
+                        {
+                            txbAux.Clear();
+                            txbTela.Text = (numero1 / double.Parse(txbTela.Text)).ToString();
+                        }
+                        else
+                        {
+                            MessageBox.Show ("Impossível dividir por 0");
+                        }
+                        break;
+                }
             }
         }
     }
